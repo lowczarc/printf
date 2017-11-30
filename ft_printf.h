@@ -6,12 +6,12 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:15:24 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/11/30 23:11:26 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/11/30 23:21:42 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef	FT_PRINTF
-#	define FT_PRINTF
+#	ifndef	FT_PRINTF_H
+#	define FT_PRINTF_H
 
 typedef	struct	s_format
 {
@@ -43,23 +43,25 @@ typedef	struct	s_flags
  * 4096 = ' '
  */
 
-t_flags		g_modifiers[] =
+t_flags		g_modifier[] =
 {
 	{"hh", 1},
 	{"h", 2},
-	{"l", 4},
 	{"ll", 8},
+	{"l", 4},
 	{"j", 16},
-	{"z", 32}
+	{"z", 32},
+	{NULL, 0}
 };
 
-t_flags		g_flags[] =
+t_flags		g_flag[] =
 {
 	{"#", 256},
 	{"0", 512},
 	{"-", 1024},
 	{"+", 2048},
-	{" ", 4096}
+	{" ", 4096},
+	{NULL, 0}
 };
 
 t_format	g_format[] = 
