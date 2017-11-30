@@ -6,17 +6,17 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:15:24 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/11/30 23:21:42 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/11/30 23:37:31 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	ifndef	FT_PRINTF_H
+#	ifndef FT_PRINTF_H
 #	define FT_PRINTF_H
 
 typedef	struct	s_format
 {
-	char 			c;
-	char			*(*fonct)(void*, short);
+	char			c;
+	char			*(*fonct)(void*, unsigned int);
 	unsigned int	flag;
 }				t_format;
 
@@ -64,7 +64,7 @@ t_flags		g_flag[] =
 	{NULL, 0}
 };
 
-t_format	g_format[] = 
+t_format	g_format[] =
 {
 	{'s', &string_format, 0},
 	{'S', &string_format, 4},
