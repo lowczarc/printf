@@ -6,13 +6,16 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:47:29 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/02 20:52:41 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/04 17:02:47 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
+#include "ft_printf.h"
 
-char	*pointer_format(void *elem, unsigned int flags)
+char	*pointer_format(va_list ap, t_formaitem format)
 {
+	(void)ap;
+	(void)format;
 	return (NULL);
 }

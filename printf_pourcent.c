@@ -6,13 +6,19 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:50:08 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/02 20:52:49 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/04 19:16:06 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
+#include "ft_printf.h"
 
-char	*pourcent_format(void *elem, unsigned int flags)
+char	*pourcent_format(va_list ap, t_formaitem format)
 {
-	return (NULL);
+	char	*ret;
+
+	(void)ap;
+	ret = ft_memalloc(2);
+	ret[0] = format.format;
+	return (ret);
 }

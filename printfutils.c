@@ -6,32 +6,47 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/03 16:48:30 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/04 17:54:35 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-char	*ft_readformat(char **str, t_formatitem format, va_list ap)
+char	*ft_readformat(char **str, t_formaitem format, va_list ap)
 {
-	char	*(*f)(va_list, unsigned int);
+	char	*(*f)(va_list, t_formaitem);
+	char	*ret;
+	char	*tmp;
 
 	format.format = **str;
-	(*str)++;
 	f = ft_fonctformat(format.format);
-	printf("\nFlags : %#x, min_size : %d, precision : %d, format : %c\n", format.flags, format.min_size, format.precision, format.format);
-	return (ft_strdup("tst"));
+	(*str)++;
+	ret = f(ap, format);
+	if (ft_strlen(ret) < (size_t)format.min_size)
+	{
+		tmp = ft_strnew(format.min_size - ft_strlen(ret));
+		ft_memset(tmp,
+				(((format.flags & 512) && !(format.flags & 1024)) ? '0' : ' '),
+				format.min_size - ft_strlen(ret));
+		if (format.flags & 1024)
+			ret = ft_strjoin(ret, tmp);
+		else
+			ret = ft_strjoin(tmp, ret);
+		free(tmp);
+	}
+	return (ret);
 }
 
 char	*ft_readflags(char **str, va_list ap)
 {
-	t_formatitem	format;
+	t_formaitem	format;
 	int	tmp;
 
 	format.precision = 1;
 	format.min_size = 0;
 	format.flags = 0;
-	while (tmp = ft_flag(str))
+	while ((tmp = ft_flag(str)))
 		format.flags = format.flags | tmp;
 	if (ft_isdigit(**str))
 		format.min_size = ft_atoi(*str);
@@ -48,13 +63,14 @@ char	*ft_readflags(char **str, va_list ap)
 	return (ft_readformat(str, format, ap));
 }
 
-int	ft_printf(char *format, ...)
+int		ft_printf(char *format, ...)
 {
 	va_list ap;
 	char	*tmp;
 	int		ret;
 
 	va_start(ap, format);
+	ret = 0;
 	while (*format)
 	{
 		if (*format != '%')
@@ -75,8 +91,12 @@ int	ft_printf(char *format, ...)
 	return (ret);
 }
 
-int	main(void)
+int		main(void)
 {
-	ft_printf("test ! bonjour ! %s ! les carottes sont cuites ! %0-0 54.58lld\n", "test", 8);
+	int	i;
+	int j;
+	i = ft_printf("test ! bonjour ! %57r ! truc ! %0-0 54.58ll%\n", 'a');
+	j = printf("test ! bonjour ! %57r ! truc ! %0-0 54.58ll%\n", 'a');
+	printf("%d, %d", i, j);
 	return (0);
 }

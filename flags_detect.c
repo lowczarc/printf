@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 23:16:20 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/03 16:38:18 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/04 17:55:38 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ const t_format	g_format[] =
 	{'X', &hexa_format, 128},
 	{'c', &char_format, 0},
 	{'C', &char_format, 4},
-	{'%', &pourcent_format, 0},
-	{0, NULL}
+	{0, &pourcent_format, 0},
 };
 
 int		ft_modifier(char **str)
@@ -121,5 +120,5 @@ void	*ft_fonctformat(char c)
 			return (g_format[i].fonct);
 		i++;
 	}
-	return (NULL);
+	return (g_format[i].fonct);
 }
