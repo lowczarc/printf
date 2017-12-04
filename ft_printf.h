@@ -6,17 +6,27 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 22:15:24 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/11/30 23:37:31 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/03 16:47:32 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	ifndef FT_PRINTF_H
 #	define FT_PRINTF_H
+#	include <stdarg.h>
+#	include "libft.h"
+
+typedef struct	s_formatitem
+{
+	char			format;
+	int				flags;
+	int				precision;
+	int				min_size;
+}				t_formatitem;
 
 typedef	struct	s_format
 {
 	char			c;
-	char			*(*fonct)(void*, unsigned int);
+	char			*(*fonct)(va_list, t_formatitem);
 	unsigned int	flag;
 }				t_format;
 
@@ -43,46 +53,16 @@ typedef	struct	s_flags
  * 4096 = ' '
  */
 
-t_flags		g_modifier[] =
-{
-	{"hh", 1},
-	{"h", 2},
-	{"ll", 8},
-	{"l", 4},
-	{"j", 16},
-	{"z", 32},
-	{NULL, 0}
-};
-
-t_flags		g_flag[] =
-{
-	{"#", 256},
-	{"0", 512},
-	{"-", 1024},
-	{"+", 2048},
-	{" ", 4096},
-	{NULL, 0}
-};
-
-t_format	g_format[] =
-{
-	{'s', &string_format, 0},
-	{'S', &string_format, 4},
-	{'s', &string_format, 0},
-	{'p', &pointer_format, 0},
-	{'d', &int_format, 0},
-	{'D', &int_format, 4},
-	{'i', &int_format, 0},
-	{'o', &octal_format, 0},
-	{'O', &octal_format, 4},
-	{'u', &int_format, 64},
-	{'U', &int_format, 68},
-	{'x', &hexa_format, 0},
-	{'X', &hexa_format, 128},
-	{'c', &char_format, 0},
-	{'C', &char_format, 4},
-	{'%', &pourcent_format, 0},
-	{0, NULL}
-};
+int		ft_modifier(char **str);
+int		ft_flag(char **str);
+int		ft_isformat(char c);
+void	*ft_fonctformat(char c);
+char	*string_format(va_list ap, t_formatitem format);
+char	*pointer_format(va_list ap, t_formatitem format);
+char	*int_format(va_list ap, t_formatitem format);
+char	*octal_format(va_list ap, t_formatitem format);
+char	*hexa_format(va_list ap, t_formatitem format);
+char	*char_format(va_list ap, t_formatitem format);
+char	*pourcent_format(va_list ap, t_formatitem format);
 
 #	endif
