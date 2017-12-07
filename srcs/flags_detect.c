@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 23:16:20 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/04 17:55:38 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/07 21:11:49 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ const t_flags		g_modifier[] =
 	{"h", 2},
 	{"ll", 8},
 	{"l", 4},
-	{"j", 16},
+	{"j", 8},
 	{"z", 32},
 	{NULL, 0}
 };
@@ -109,7 +109,7 @@ int		ft_isformat(char c)
 	return (0);
 }
 
-void	*ft_fonctformat(char c)
+void	*ft_fonctformat(char c, t_formaitem *format)
 {
 	int	i;
 
@@ -117,7 +117,10 @@ void	*ft_fonctformat(char c)
 	while (g_format[i].c)
 	{
 		if (g_format[i].c == c)
+		{
+			format->flags = format->flags | g_format[i].flag;
 			return (g_format[i].fonct);
+		}
 		i++;
 	}
 	return (g_format[i].fonct);

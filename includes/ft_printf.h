@@ -6,13 +6,15 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 16:47:08 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/04 22:20:29 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/07 21:57:39 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdarg.h>
+# include <inttypes.h>
+# include <wchar.h>
 # include "../libft/libft.h"
 
 typedef struct		s_formaitem
@@ -39,14 +41,18 @@ typedef	struct		s_flags
 int					ft_modifier(char **str);
 int					ft_flag(char **str);
 int					ft_isformat(char c);
-void				*ft_fonctformat(char c);
+void				*ft_fonctformat(char c, t_formaitem *format);
 char				*string_format(va_list ap, t_formaitem *format);
 char				*pointer_format(va_list ap, t_formaitem *format);
 char				*int_format(va_list ap, t_formaitem *format);
 char				*octal_format(va_list ap, t_formaitem *format);
 char				*hexa_format(va_list ap, t_formaitem *format);
+char				*wstr_to_str(wchar_t *str);
+size_t				ft_wstrlen(wchar_t *str);
 char				*char_format(va_list ap, t_formaitem *format);
 char				*pourcent_format(va_list ap, t_formaitem *format);
 int					ft_printf(char *format, ...);
+char				*ft_llitoa(long long int n);
+char 				*ft_llutoa(unsigned long long int);
 
 #endif

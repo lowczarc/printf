@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/04 22:26:06 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/07 19:35:52 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_readformat(char **str, t_formaitem format, va_list ap)
 	char	*tmp;
 
 	format.format = **str;
-	f = ft_fonctformat(format.format);
+	f = ft_fonctformat(format.format, &format);
 	(*str)++;
 	ret = f(ap, &format);
 	if (ft_strlen(ret) < (size_t)format.min_size)

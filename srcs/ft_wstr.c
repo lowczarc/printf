@@ -1,18 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_wstr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 16:12:34 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/04 17:25:35 by lowczarc         ###   ########.fr       */
+/*   Created: 2017/12/07 15:47:39 by lowczarc          #+#    #+#             */
+/*   Updated: 2017/12/07 19:27:07 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <string.h>
+#include "ft_printf.h"
 
-int	main(void)
+char	*wstr_to_str(wchar_t *str)
 {
-	printf("%057%\n", "test");
+	char	*ret;
+	int		i;
+	
+	if (!str)
+		return (NULL);
+	if (!(ret = ft_strnew(ft_wstrlen(str))))
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	return (ret);
+}
+
+size_t	ft_wstrlen(wchar_t *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
