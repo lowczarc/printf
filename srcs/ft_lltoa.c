@@ -6,11 +6,11 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 20:52:30 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/07 21:35:28 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/08 16:20:27 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 static int	size_llutoa(unsigned long long int n)
 {
@@ -26,34 +26,36 @@ static int	size_llutoa(unsigned long long int n)
 	return (ret);
 }
 
-static int	ft_putinstr(char *s, int n)
+static void	ft_putinstr(char *s, unsigned long long n, int size)
 {
-	if (n == 0)
-		return (0);
-	ft_putinstr(s - 1, n / 10);
-	*s = (n % 10) + '0';
-	return (n);
+	while (size > 0)
+	{
+		size--;
+		s[size] = (n % 10) + '0';
+		n = n / 10;
+	}
 }
 
-char		*ft_llutoa(unsigned long long int n)
+char		*ft_llutoa(unsigned long long int n, int size)
 {
 	char	*ret;
 
-	ret = malloc(sizeof(char) * (size_llutoa(n) + 1));
+	if (size < size_llutoa(n))
+		size = size_llutoa(n);
+	ret = malloc(sizeof(char) * (size + 1));
 	if (ret == NULL)
 		return (NULL);
-	ret[size_llutoa(n) + 1] = 0;
-	ft_putinstr(&ret[size_llutoa(n) - 1], n);
-	ret[size_llutoa(n)] = 0;
+	ft_putinstr(ret, n, size);
+	ret[size] = 0;
 	return (ret);
 }
 
-char		*ft_llitoa(long long int n)
+char		*ft_llitoa(long long int n, int size)
 {
 	char	*tmp;
 	char	*ret;
 
-	tmp = ft_llutoa((n < 0) ? -n : n);
+	tmp = ft_llutoa((n < 0) ? -n : n, size);
 	ret = (n < 0) ? ft_strjoin("-", tmp) : ft_strdup(tmp);
 	free(tmp);
 	return (ret);
