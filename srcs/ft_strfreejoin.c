@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strfreejoin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 16:12:34 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/13 16:16:11 by lowczarc         ###   ########.fr       */
+/*   Created: 2017/12/14 21:59:12 by lowczarc          #+#    #+#             */
+/*   Updated: 2017/12/14 22:09:28 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <wchar.h>
-#include <locale.h>
+#include "libft.h"
 
-int	main(void)
+char	*ft_strfreejoin(char *s1, char *s2)
 {
-	setlocale(LC_ALL, "");
-	printf ("%*.1*ls\n", 50, 10, L"Pour qui sont ces sont serpents qui sifflent sur vos têtes ?");
+	char	*ret;
+
+	if (!s1 || !s2)
+		return (NULL);
+	ret = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
+	if (ret == NULL)
+		return (NULL);
+	ft_strcpy(ret, s1);
+	ft_strcat(ret, s2);
+	free(s1);
+	free(s2);
+	return (ret);
 }

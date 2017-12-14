@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 23:16:20 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/07 21:11:49 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/14 22:58:06 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,16 @@ const t_format	g_format[] =
 {
 	{'s', &string_format, 0},
 	{'S', &string_format, 4},
-	{'s', &string_format, 0},
-	{'p', &pointer_format, 0},
+	{'p', &int_format, 324},
 	{'d', &int_format, 0},
 	{'D', &int_format, 4},
 	{'i', &int_format, 0},
-	{'o', &octal_format, 0},
-	{'O', &octal_format, 4},
+	{'o', &int_format, 64},
+	{'O', &int_format, 68},
 	{'u', &int_format, 64},
 	{'U', &int_format, 68},
-	{'x', &hexa_format, 0},
-	{'X', &hexa_format, 128},
+	{'x', &int_format, 64},
+	{'X', &int_format, 192},
 	{'c', &char_format, 0},
 	{'C', &char_format, 4},
 	{0, &pourcent_format, 0},

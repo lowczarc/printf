@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 16:47:08 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/08 16:19:06 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/14 22:04:43 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ size_t				ft_wstrlen(wchar_t *str);
 char				*char_format(va_list ap, t_formaitem *format);
 char				*pourcent_format(va_list ap, t_formaitem *format);
 int					ft_printf(char *format, ...);
-char				*ft_llitoa(long long int n, int size);
+char				*ft_strfreejoin(char *s1, char *s2);
+char				*ft_llitoa(long long int n, t_formaitem *format);
 char 				*ft_llutoa(unsigned long long int n, int size);
+char 				*ft_llxtoa(unsigned long long int n, int size, char *base);
 
 #endif

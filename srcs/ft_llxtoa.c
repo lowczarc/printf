@@ -1,64 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   ft_llxtoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/07 20:52:30 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:01:52 by lowczarc         ###   ########.fr       */
+/*   Created: 2017/12/14 21:37:17 by lowczarc          #+#    #+#             */
+/*   Updated: 2017/12/14 22:07:58 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	size_llutoa(unsigned long long int n)
+static int	size_llxtoa(unsigned long long int n, char *base)
 {
 	unsigned long long int	ret;
 
 	ret = 0;
-	while (n >= 10)
+	while (n >= ft_strlen(base))
 	{
 		ret++;
-		n /= 10;
+		n /= ft_strlen(base);
 	}
 	ret++;
 	return (ret);
 }
 
-static void	ft_putinstr(char *s, unsigned long long n, int size)
+static void	ft_putinstr(char *s, unsigned long long n, int size, char *base)
 {
 	while (size > 0)
 	{
 		size--;
-		s[size] = (n % 10) + '0';
-		n = n / 10;
+		s[size] = base[(n % ft_strlen(base))];
+		n = n / ft_strlen(base);
 	}
 }
 
-char		*ft_llutoa(unsigned long long int n, int size)
+char		*ft_llxtoa(unsigned long long int n, int size, char *base)
 {
 	char	*ret;
 
-	if (size < size_llutoa(n))
-		size = size_llutoa(n);
+	if (size < size_llxtoa(n, base))
+		size = size_llxtoa(n, base);
 	ret = malloc(sizeof(char) * (size + 1));
 	if (ret == NULL)
 		return (NULL);
-	ft_putinstr(ret, n, size);
+	ft_putinstr(ret, n, size, base);
 	ret[size] = 0;
-	return (ret);
-}
-
-char		*ft_llitoa(long long int n, t_formaitem *format)
-{
-	char	*tmp;
-	char	*ret;
-	int		size;
-
-	size = format->precision - 1 
-		+ (!(format->flags & 512) && format->precision != -1);
-	tmp = ft_llutoa((n < 0) ? -n : n, size);
-	ret = (n < 0) ? ft_strfreejoin(ft_strdup("-"), tmp) : tmp;
 	return (ret);
 }

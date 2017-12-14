@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/07 19:35:52 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/14 22:12:35 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ char	*ft_readformat(char **str, t_formaitem format, va_list ap)
 				(((format.flags & 512) && !(format.flags & 1024)) ? '0' : ' '),
 				format.min_size - ft_strlen(ret));
 		if (format.flags & 1024)
-			ret = ft_strjoin(ret, tmp);
+			ret = ft_strfreejoin(ret, tmp);
 		else
-			ret = ft_strjoin(tmp, ret);
-		free(tmp);
+			ret = ft_strfreejoin(tmp, ret);
 	}
 	return (ret);
 }
@@ -50,13 +49,18 @@ char	*ft_readflags(char **str, va_list ap)
 		format.flags = format.flags | tmp;
 	if (ft_isdigit(**str))
 		format.min_size = ft_atoi(*str);
-	while (ft_isdigit(**str))
+	else if (**str == '*')
+		format.min_size = va_arg(ap, int);
+	while (ft_isdigit(**str) || **str == '*')
 		(*str)++;
+	
 	if (**str == '.')
 	{
 		(*str)++;
 		format.precision = ft_atoi(*str);
-		while (ft_isdigit(**str))
+		if (**str == '*')
+			format.precision = va_arg(ap, int);
+		while (ft_isdigit(**str) || **str == '*')
 			(*str)++;
 	}
 	format.flags = format.flags | ft_modifier(str);
