@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:48:16 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:58:08 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/15 17:52:11 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ char	*int_format(va_list ap, t_formaitem *format)
 		format->precision = format->min_size;
 	ret = (format->flags & 64) ? unsigned_format(ap, format)
 		: signed_format(ap, format);
+	if (!(format->flags & 64) && ret[0] != '-')
+	{
+		if (format->flags & 2048)
+			ret = ft_strfreejoin(ft_strdup("+"), ret);
+		else if (format->flags & 4096)
+			ret = ft_strfreejoin(ft_strdup(" "), ret);
+	}
 	if (ret[0] != '0' && format->flags & 256
 			&& (format->format == 'o' || format->format == 'O'))
 		ret = ft_strfreejoin(ft_strdup("0"), ret);

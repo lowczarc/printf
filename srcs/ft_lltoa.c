@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 20:52:30 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:01:52 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/15 20:27:43 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char		*ft_llitoa(long long int n, t_formaitem *format)
 	char	*ret;
 	int		size;
 
-	size = format->precision - 1 
+	size = format->precision - 1
 		+ (!(format->flags & 512) && format->precision != -1);
 	tmp = ft_llutoa((n < 0) ? -n : n, size);
 	ret = (n < 0) ? ft_strfreejoin(ft_strdup("-"), tmp) : tmp;

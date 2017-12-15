@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:47:39 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:54:18 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/15 20:29:39 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*wstr_to_str(wchar_t *str)
 {
 	char	*ret;
 	int		i;
-	
+
 	if (!str)
 		return (NULL);
 	if (!(ret = ft_strnew(ft_wstrlen(str))))

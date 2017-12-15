@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:12:35 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/15 20:28:23 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_readformat(char **str, t_formaitem format, va_list ap)
 char	*ft_readflags(char **str, va_list ap)
 {
 	t_formaitem	format;
-	int	tmp;
+	int			tmp;
 
 	format.precision = -1;
 	format.min_size = 0;
@@ -53,7 +53,6 @@ char	*ft_readflags(char **str, va_list ap)
 		format.min_size = va_arg(ap, int);
 	while (ft_isdigit(**str) || **str == '*')
 		(*str)++;
-	
 	if (**str == '.')
 	{
 		(*str)++;
@@ -89,6 +88,7 @@ int		ft_printf(char *format, ...)
 			tmp = ft_readflags(&format, ap);
 			ret += ft_strlen(tmp);
 			ft_putstr(tmp);
+			free(tmp);
 		}
 	}
 	va_end(ap);

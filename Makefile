@@ -6,7 +6,7 @@
 #    By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/04 21:27:41 by lowczarc          #+#    #+#              #
-#    Updated: 2017/12/14 22:06:22 by lowczarc         ###   ########.fr        #
+#    Updated: 2017/12/15 18:04:16 by lowczarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,8 @@ SRCSPATH=srcs
 INCLUDEPATH=includes
 LIBPATH=libft
 
-OBJ= printfutils.o flags_detect.o printf_char.o printf_octal.o printf_int.o \
-	 printf_hexa.o printf_pointer.o printf_pourcent.o printf_string.o \
-	 ft_wstr.o ft_lltoa.o ft_llxtoa.o ft_strfreejoin.o
+OBJ= printfutils.o flags_detect.o printf_char.o printf_int.o printf_pourcent.o \
+	 printf_string.o ft_wstr.o ft_lltoa.o ft_llxtoa.o ft_strfreejoin.o
 
 LOBJ = $(LIBPATH)/ft_memset.o $(LIBPATH)/ft_bzero.o $(LIBPATH)/ft_memcpy.o \
 	   $(LIBPATH)/ft_memmove.o $(LIBPATH)/ft_memchr.o $(LIBPATH)/ft_memcmp.o \
