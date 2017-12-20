@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 16:47:08 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/14 22:04:43 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/20 15:07:28 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char				*int_format(va_list ap, t_formaitem *format);
 char				*octal_format(va_list ap, t_formaitem *format);
 char				*hexa_format(va_list ap, t_formaitem *format);
 char				*wstr_to_str(wchar_t *str);
+char				*wchar_to_str(wchar_t c);
 size_t				ft_wstrlen(wchar_t *str);
 char				*char_format(va_list ap, t_formaitem *format);
 char				*pourcent_format(va_list ap, t_formaitem *format);

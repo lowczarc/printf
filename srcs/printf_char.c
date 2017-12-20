@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:54:24 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/04 21:24:43 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/20 16:16:46 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*char_format(va_list ap, t_formaitem *format)
 	{
 		ret = ft_memalloc(2);
 		ret[0] = va_arg(ap, int);
-		return (ret);
 	}
-	return (NULL);
+	else
+		ret = wchar_to_str(va_arg(ap, wchar_t));
+	return (ret);
 }

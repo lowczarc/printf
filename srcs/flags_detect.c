@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 23:16:20 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/15 20:56:22 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/19 20:29:06 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ const t_format	g_format[] =
 	{'U', &int_format, 68},
 	{'x', &int_format, 64},
 	{'X', &int_format, 192},
+	{'b', &int_format, 64},
 	{'c', &char_format, 0},
 	{'C', &char_format, 4},
 	{0, &pourcent_format, 0},

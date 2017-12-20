@@ -6,12 +6,67 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:47:39 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/15 20:29:39 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/20 15:58:22 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include "ft_printf.h"
+
+static unsigned int		nbrchars(wchar_t c)
+{
+	unsigned int	ret;
+
+	ret = 0;
+	if (c < 128)
+		return (1);
+	while (c != 0)
+	{
+		ret++;
+		c = (c >> 1) & 0x7FFFFFFF;
+	}
+	ret = ((ret - 2) / 5) + 1;
+	if (ret > MB_CUR_MAX)
+		return (-1);
+	return (ret);
+}
+
+static char	firstbyte(int size, char c)
+{
+	char	ret;
+
+	while (size--)
+		ret = (ret >> 1) | 0x80;
+	return (ret | c);
+}
+
+char	*wchar_to_str(wchar_t c)
+{
+	char	*ret;
+	int		i;
+	int		size;
+	
+	i = nbrchars(c);
+	if ((size = i) == -1)
+		return (NULL);
+	ret = ft_memalloc(i + sizeof(char));
+	if (c < 128)
+	{
+		ret[0] = c;
+		return (ret);
+	}
+	while (i--)
+	{
+		if (i)
+		{
+			ret[i] = (c & 0x3F) | 0x80;
+			c = (c >> 6) & 0x3FFFFFF;
+		}
+		else
+			ret[i] = firstbyte(size, c);
+	}
+	return (ret);
+}
 
 char	*wstr_to_str(wchar_t *str)
 {
@@ -20,12 +75,13 @@ char	*wstr_to_str(wchar_t *str)
 
 	if (!str)
 		return (NULL);
-	if (!(ret = ft_strnew(ft_wstrlen(str))))
-		return (NULL);
 	i = 0;
+	ret = ft_strdup("");
 	while (str[i])
 	{
-		ret[i] = str[i];
+		if (!wchar_to_str(str[i]))
+			return ((void*)-1);
+		ret = ft_strfreejoin(ret, wchar_to_str(str[i]));
 		i++;
 	}
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/15 20:28:23 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/20 16:10:57 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_readformat(char **str, t_formaitem format, va_list ap)
 	format.format = **str;
 	f = ft_fonctformat(format.format, &format);
 	(*str)++;
-	ret = f(ap, &format);
+	if (!(ret = f(ap, &format)))
+		return (NULL);
 	if (ft_strlen(ret) < (size_t)format.min_size)
 	{
 		tmp = ft_strnew(format.min_size - ft_strlen(ret));
@@ -66,31 +67,38 @@ char	*ft_readflags(char **str, va_list ap)
 	return (ft_readformat(str, format, ap));
 }
 
+char	*ft_chartostr(char c)
+{
+	char	*ret;
+
+	ret = ft_strnew(1);
+	ret[0] = c;
+	return (ret);
+}
+
 int		ft_printf(char *format, ...)
 {
 	va_list ap;
 	char	*tmp;
-	int		ret;
 
 	va_start(ap, format);
-	ret = 0;
+	tmp = ft_strdup("");
 	while (*format)
 	{
 		if (*format != '%')
 		{
-			ft_putchar(*format);
-			ret++;
+			tmp = ft_strfreejoin(tmp, ft_chartostr(*format));
 			format++;
 		}
 		else
 		{
 			format++;
-			tmp = ft_readflags(&format, ap);
-			ret += ft_strlen(tmp);
-			ft_putstr(tmp);
-			free(tmp);
+			tmp = ft_strfreejoin(tmp, ft_readflags(&format, ap));
+			if (!tmp)
+				return (-1);
 		}
 	}
 	va_end(ap);
-	return (ret);
+	ft_putstr(tmp);
+	return (ft_strlen(tmp));
 }
