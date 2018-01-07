@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:48:16 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/19 20:27:56 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/24 15:44:44 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*unsigned_format(va_list ap, t_formaitem *format)
 	return (NULL);
 }
 
-char	*int_format(va_list ap, t_formaitem *format)
+char	*int_format(va_list ap, t_formaitem *format, int *size)
 {
 	char		*ret;
 
@@ -81,5 +81,6 @@ char	*int_format(va_list ap, t_formaitem *format)
 		ret = ft_strfreejoin(ft_strdup("0x"), ret);
 	if (format->flags & 256 && (format->format == 'X'))
 		ret = ft_strfreejoin(ft_strdup("0X"), ret);
+	*size = ft_strlen(ret);
 	return (ret);
 }

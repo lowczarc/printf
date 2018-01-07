@@ -6,39 +6,43 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:21:42 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/20 16:10:57 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/02 21:24:11 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-char	*ft_readformat(char **str, t_formaitem format, va_list ap)
+
+int		ft_readformat(char **str, t_formaitem format, va_list ap)
 {
-	char	*(*f)(va_list, t_formaitem*);
+	char	*(*f)(va_list, t_formaitem*, int*);
 	char	*ret;
 	char	*tmp;
+	int		size;
 
 	format.format = **str;
 	f = ft_fonctformat(format.format, &format);
 	(*str)++;
-	if (!(ret = f(ap, &format)))
-		return (NULL);
-	if (ft_strlen(ret) < (size_t)format.min_size)
+	if (!(ret = f(ap, &format, &size)))
+		return (-1);
+	if (size < format.min_size)
 	{
-		tmp = ft_strnew(format.min_size - ft_strlen(ret));
+		tmp = ft_strnew(format.min_size - size);
 		ft_memset(tmp,
 				(((format.flags & 512) && !(format.flags & 1024)) ? '0' : ' '),
-				format.min_size - ft_strlen(ret));
+				format.min_size - size);
 		if (format.flags & 1024)
-			ret = ft_strfreejoin(ret, tmp);
+			ret = ft_strnjoin(ret, tmp, size, ft_strlen(tmp));
 		else
-			ret = ft_strfreejoin(tmp, ret);
+			ret = ft_strnjoin(tmp, ret, ft_strlen(tmp), size);
+		size = format.min_size;
 	}
-	return (ret);
+	ft_putnstr(ret, size);
+	return (size);
 }
 
-char	*ft_readflags(char **str, va_list ap)
+int		ft_readflags(char **str, va_list ap)
 {
 	t_formaitem	format;
 	int			tmp;
@@ -67,38 +71,30 @@ char	*ft_readflags(char **str, va_list ap)
 	return (ft_readformat(str, format, ap));
 }
 
-char	*ft_chartostr(char c)
-{
-	char	*ret;
-
-	ret = ft_strnew(1);
-	ret[0] = c;
-	return (ret);
-}
-
 int		ft_printf(char *format, ...)
 {
 	va_list ap;
-	char	*tmp;
+	int		size;
+	int		tmp;
 
 	va_start(ap, format);
-	tmp = ft_strdup("");
 	while (*format)
 	{
 		if (*format != '%')
 		{
-			tmp = ft_strfreejoin(tmp, ft_chartostr(*format));
+			ft_putchar(*format);
+			size++;
 			format++;
 		}
 		else
 		{
 			format++;
-			tmp = ft_strfreejoin(tmp, ft_readflags(&format, ap));
-			if (!tmp)
+			tmp = ft_readflags(&format, ap);
+			if (tmp == -1)
 				return (-1);
+			size += tmp;
 		}
 	}
 	va_end(ap);
-	ft_putstr(tmp);
-	return (ft_strlen(tmp));
+	return (size);
 }

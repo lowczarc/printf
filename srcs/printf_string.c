@@ -6,14 +6,14 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:35:16 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/20 16:18:52 by lowczarc         ###   ########.fr       */
+/*   Updated: 2017/12/24 16:06:59 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include "ft_printf.h"
 
-char	*string_format(va_list ap, t_formaitem *format)
+char	*string_format(va_list ap, t_formaitem *format, int *size)
 {
 	char	*ret;
 
@@ -29,5 +29,6 @@ char	*string_format(va_list ap, t_formaitem *format)
 	{
 		ret = ft_strsub(ret, 0, format->precision);
 	}
+	*size = ft_strlen(ret);
 	return (ret);
 }
