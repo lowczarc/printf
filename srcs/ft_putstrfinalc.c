@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putstrfinalc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lowczarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 16:20:34 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/11/08 17:50:27 by lowczarc         ###   ########.fr       */
+/*   Created: 2018/01/09 13:21:20 by lowczarc          #+#    #+#             */
+/*   Updated: 2018/01/09 13:36:17 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+size_t	ft_putstrfinalc(char *str, char c)
 {
-	if (*s == (char)c)
-		return ((char*)s);
-	if (!*s)
-		return (NULL);
-	return (ft_strchr(&s[1], c));
+	size_t		len;
+
+	len = ft_strlenc(str, c);
+	write(1, str, len);
+	return (len);
 }

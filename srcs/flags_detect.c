@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/30 23:16:20 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/19 20:29:06 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:09:15 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ const t_flags		g_modifier[] =
 	{"ll", 8},
 	{"l", 4},
 	{"j", 8},
-	{"z", 68},
+	{"z", 4},
 	{NULL, 0}
 };
 
@@ -37,20 +37,22 @@ const t_format	g_format[] =
 {
 	{'s', &string_format, 0},
 	{'S', &string_format, 4},
-	{'p', &int_format, 324},
+	{'p', &int_format, 452},
 	{'d', &int_format, 0},
 	{'D', &int_format, 4},
 	{'i', &int_format, 0},
-	{'o', &int_format, 64},
-	{'O', &int_format, 68},
+	{'o', &int_format, 96},
+	{'O', &int_format, 100},
 	{'u', &int_format, 64},
 	{'U', &int_format, 68},
 	{'x', &int_format, 64},
-	{'X', &int_format, 192},
+	{'X', &int_format, 64},
 	{'b', &int_format, 64},
+	{'f', &float_format, 0},
+	{'F', &float_format, 4},
 	{'c', &char_format, 0},
 	{'C', &char_format, 4},
-	{0, &pourcent_format, 0},
+	{0, &pourcent_format, 0}
 };
 
 int		ft_modifier(char **str)

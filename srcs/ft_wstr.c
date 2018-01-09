@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 15:47:39 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/20 15:58:22 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/09 11:47:10 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,27 @@ static unsigned int		nbrchars(wchar_t c)
 		c = (c >> 1) & 0x7FFFFFFF;
 	}
 	ret = ((ret - 2) / 5) + 1;
-	if (ret > MB_CUR_MAX)
+	if (ret > (unsigned int)MB_CUR_MAX)
 		return (-1);
 	return (ret);
 }
 
-static char	firstbyte(int size, char c)
+static char				firstbyte(int size, char c)
 {
 	char	ret;
 
+	ret = 0;
 	while (size--)
 		ret = (ret >> 1) | 0x80;
 	return (ret | c);
 }
 
-char	*wchar_to_str(wchar_t c)
+char					*wchar_to_str(wchar_t c)
 {
 	char	*ret;
 	int		i;
 	int		size;
-	
+
 	i = nbrchars(c);
 	if ((size = i) == -1)
 		return (NULL);
@@ -68,7 +69,7 @@ char	*wchar_to_str(wchar_t c)
 	return (ret);
 }
 
-char	*wstr_to_str(wchar_t *str)
+char					*wstr_to_str(wchar_t *str, int size)
 {
 	char	*ret;
 	int		i;
@@ -77,17 +78,21 @@ char	*wstr_to_str(wchar_t *str)
 		return (NULL);
 	i = 0;
 	ret = ft_strdup("");
-	while (str[i])
+	while (str[i] && ft_strlen(ret) < (size_t)size)
 	{
 		if (!wchar_to_str(str[i]))
+		{
+			free(ret);
 			return ((void*)-1);
-		ret = ft_strfreejoin(ret, wchar_to_str(str[i]));
+		}
+		if (ft_strlen(ret) + ft_strlen(wchar_to_str(str[i])) <= (size_t)size)
+			ret = ft_strfreejoin(ret, wchar_to_str(str[i]));
 		i++;
 	}
 	return (ret);
 }
 
-size_t	ft_wstrlen(wchar_t *str)
+size_t					ft_wstrlen(wchar_t *str)
 {
 	size_t	i;
 

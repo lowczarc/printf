@@ -6,40 +6,31 @@
 #    By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/04 21:27:41 by lowczarc          #+#    #+#              #
-#    Updated: 2017/12/15 18:04:16 by lowczarc         ###   ########.fr        #
+#    Updated: 2018/01/09 16:08:35 by lowczarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libftprintf.a
 SRCSPATH=srcs
 INCLUDEPATH=includes
-LIBPATH=libft
 
-OBJ= printfutils.o flags_detect.o printf_char.o printf_int.o printf_pourcent.o \
-	 printf_string.o ft_wstr.o ft_lltoa.o ft_llxtoa.o ft_strfreejoin.o
+OBJ=printfutils.o flags_detect.o printf_char.o printf_int.o printf_pourcent.o \
+	printf_string.o ft_wstr.o ft_lltoa.o ft_llxtoa.o ft_strfreejoin.o \
+	ft_strlenc.o ft_putstrfinalc.o printf_float.o\
+	ft_memset.o ft_bzero.o ft_memcpy.o ft_memmove.o ft_memchr.o ft_memcmp.o \
+	ft_strlen.o ft_strdup.o ft_memccpy.o ft_strcpy.o ft_strncpy.o \
+	ft_strcat.o ft_strncat.o ft_strlcat.o ft_strchr.o ft_strrchr.o \
+	ft_strstr.o ft_strnstr.o ft_strcmp.o ft_strncmp.o ft_atoi.o \
+	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o \
+	ft_toupper.o ft_tolower.o ft_memalloc.o ft_memdel.o ft_strnew.o \
+	ft_strdel.o ft_strclr.o ft_striter.o ft_striteri.o ft_strmap.o \
+	ft_strmapi.o ft_strequ.o ft_strnequ.o ft_strsub.o ft_strjoin.o \
+	ft_strtrim.o ft_strsplit.o ft_itoa.o ft_putchar.o ft_putstr.o \
+	ft_putendl.o ft_putnbr.o ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o \
+	ft_putnbr_fd.o ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o \
+	ft_lstiter.o ft_lstmap.o
 
-LOBJ = $(LIBPATH)/ft_memset.o $(LIBPATH)/ft_bzero.o $(LIBPATH)/ft_memcpy.o \
-	   $(LIBPATH)/ft_memmove.o $(LIBPATH)/ft_memchr.o $(LIBPATH)/ft_memcmp.o \
-	   $(LIBPATH)/ft_strlen.o $(LIBPATH)/ft_strdup.o $(LIBPATH)/ft_memccpy.o \
-	   $(LIBPATH)/ft_strcpy.o $(LIBPATH)/ft_strncpy.o $(LIBPATH)/ft_strcat.o \
-	   $(LIBPATH)/ft_strncat.o $(LIBPATH)/ft_strlcat.o $(LIBPATH)/ft_strchr.o \
-	   $(LIBPATH)/ft_strrchr.o $(LIBPATH)/ft_strstr.o $(LIBPATH)/ft_strnstr.o \
-	   $(LIBPATH)/ft_strcmp.o $(LIBPATH)/ft_strncmp.o $(LIBPATH)/ft_atoi.o \
-	   $(LIBPATH)/ft_isalpha.o $(LIBPATH)/ft_isdigit.o $(LIBPATH)/ft_isalnum.o \
-	   $(LIBPATH)/ft_isascii.o $(LIBPATH)/ft_isprint.o $(LIBPATH)/ft_toupper.o \
-	   $(LIBPATH)/ft_tolower.o $(LIBPATH)/ft_memalloc.o $(LIBPATH)/ft_memdel.o \
-	   $(LIBPATH)/ft_strnew.o $(LIBPATH)/ft_strdel.o $(LIBPATH)/ft_strclr.o \
-	   $(LIBPATH)/ft_striter.o $(LIBPATH)/ft_striteri.o $(LIBPATH)/ft_strmap.o \
-	   $(LIBPATH)/ft_strmapi.o $(LIBPATH)/ft_strequ.o $(LIBPATH)/ft_strnequ.o \
-	   $(LIBPATH)/ft_strsub.o $(LIBPATH)/ft_strjoin.o $(LIBPATH)/ft_strtrim.o \
-	   $(LIBPATH)/ft_strsplit.o $(LIBPATH)/ft_itoa.o $(LIBPATH)/ft_putchar.o \
-	   $(LIBPATH)/ft_putstr.o $(LIBPATH)/ft_putendl.o $(LIBPATH)/ft_putnbr.o \
-	   $(LIBPATH)/ft_putchar_fd.o $(LIBPATH)/ft_putstr_fd.o \
-	   $(LIBPATH)/ft_putendl_fd.o $(LIBPATH)/ft_putnbr_fd.o \
-	   $(LIBPATH)/ft_lstnew.o $(LIBPATH)/ft_lstdelone.o $(LIBPATH)/ft_lstdel.o \
-	   $(LIBPATH)/ft_lstadd.o $(LIBPATH)/ft_lstiter.o $(LIBPATH)/ft_lstmap.o
-
-FLAGS= -Wall -Wextra -Werror -I includes -I $(LIBPATH)
+FLAGS= -Wall -Wextra -Werror -I $(INCLUDEPATH)
 
 RED=\033[31m
 GREEN=\033[32m
@@ -47,12 +38,9 @@ EOC=\033[0m
 
 all: $(NAME)
 
-$(NAME):$(LOBJ) $(OBJ)
+$(NAME):$(OBJ)
 	ar rc $(NAME) $(LOBJ) $(OBJ) 
 	ranlib $(NAME)
-
-$(LIBPATH)/%.o: $(LIBPATH)/%.c
-	cd $(LIBPATH) && $(MAKE)
 
 %.o: $(SRCSPATH)/%.c
 	gcc -o $@ -c $< $(FLAGS)
@@ -61,7 +49,6 @@ $(LIBPATH)/%.o: $(LIBPATH)/%.c
 
 clean:
 	rm -f $(OBJ)
-	cd $(LIBPATH) && $(MAKE) clean
 
 fclean: clean
 	rm -f $(NAME)

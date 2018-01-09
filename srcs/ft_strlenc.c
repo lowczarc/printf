@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_char.c                                      :+:      :+:    :+:   */
+/*   ft_strlenc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/02 20:54:24 by lowczarc          #+#    #+#             */
-/*   Updated: 2018/01/08 11:52:48 by lowczarc         ###   ########.fr       */
+/*   Created: 2018/01/09 13:29:27 by lowczarc          #+#    #+#             */
+/*   Updated: 2018/01/09 13:30:38 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <string.h>
+#include "libft.h"
 
-char	*char_format(va_list ap, t_formaitem *format, int *size)
+size_t	ft_strlenc(const char *s, char c)
 {
-	char *ret;
+	size_t	ret;
 
-	if (!(format->flags & 4))
-	{
-		ret = ft_memalloc(2);
-		ret[0] = va_arg(ap, int);
-	}
-	else
-		ret = wchar_to_str(va_arg(ap, wchar_t));
-	if (!ret)
-		return (NULL);
-	*size = (!ft_strlen(ret)) ? 1 : ft_strlen(ret);
+	ret = 0;
+	while (s[ret] && s[ret] != c)
+		ret++;
 	return (ret);
 }

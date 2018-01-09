@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 20:48:16 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/24 15:44:44 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/09 11:45:41 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,41 @@
 
 char	*signed_format(va_list ap, t_formaitem *format)
 {
-	if (format->flags & 1)
+	if (format->flags & 4)
+		return (ft_llitoa(va_arg(ap, long int), format));
+	else if (format->flags & 1)
 		return (ft_llitoa((char)va_arg(ap, int), format));
 	else if (format->flags & 2)
 		return (ft_llitoa((short)va_arg(ap, int), format));
-	else if (format->flags & 4)
-		return (ft_llitoa(va_arg(ap, long int), format));
 	else if (format->flags & 8)
 		return (ft_llitoa(va_arg(ap, long long int), format));
 	else
 		return (ft_llitoa(va_arg(ap, int), format));
 }
 
-char	*unsigned_format(va_list ap, t_formaitem *format)
+char	*unsigned_format(va_list ap, t_formaitem *f)
 {
 	unsigned long long int	nb;
 
-	if (format->flags & 1)
-		nb = (unsigned char)va_arg(ap, int);
-	else if (format->flags & 2)
-		nb = (unsigned short)va_arg(ap, int);
-	else if (format->flags & 4)
+	if (f->flags & 4)
 		nb = va_arg(ap, unsigned long);
-	else if (format->flags & 8)
+	else if (f->flags & 1)
+		nb = (unsigned char)va_arg(ap, int);
+	else if (f->flags & 2)
+		nb = (unsigned short)va_arg(ap, int);
+	else if (f->flags & 8)
 		nb = va_arg(ap, unsigned long long);
 	else
 		nb = va_arg(ap, unsigned int);
-	if (format->format == 'u' || format->format == 'U')
-		return (ft_llutoa(nb, format->precision));
-	if (format->format == 'x')
-		return (ft_llxtoa(nb, format->precision, "0123456789abcdef"));
-	if (format->format == 'X')
-		return (ft_llxtoa(nb, format->precision, "0123456789ABCDEF"));
-	if (format->format == 'o' || format->format == 'O')
-		return (ft_llxtoa(nb, format->precision, "01234567"));
-	if (format->format == 'b')
-		return (ft_llxtoa(nb, format->precision, "01"));
-	return (NULL);
+	if (f->format == 'x')
+		return (ft_llxtoa(nb, f, "0123456789abcdef", "0x"));
+	if (f->format == 'X')
+		return (ft_llxtoa(nb, f, "0123456789ABCDEF", "0X"));
+	if (f->format == 'o' || f->format == 'O')
+		return (ft_llxtoa(nb, f, "01234567", "0"));
+	if (f->format == 'b')
+		return (ft_llxtoa(nb, f, "01", "0b"));
+	return (ft_llutoa(nb, f->precision));
 }
 
 char	*int_format(va_list ap, t_formaitem *format, int *size)
@@ -61,7 +59,7 @@ char	*int_format(va_list ap, t_formaitem *format, int *size)
 
 	if (format->format == 'p')
 		format->format = 'x';
-	if (format->precision != -1)
+	if (format->precision != -1 || format->flags & 1024)
 		format->flags = format->flags & 0xFDFF;
 	else if (format->precision == -1 && format->flags & 512)
 		format->precision = format->min_size;
@@ -74,13 +72,6 @@ char	*int_format(va_list ap, t_formaitem *format, int *size)
 		else if (format->flags & 4096)
 			ret = ft_strfreejoin(ft_strdup(" "), ret);
 	}
-	if (ret[0] != '0' && format->flags & 256
-			&& (format->format == 'o' || format->format == 'O'))
-		ret = ft_strfreejoin(ft_strdup("0"), ret);
-	if (format->flags & 256 && (format->format == 'x'))
-		ret = ft_strfreejoin(ft_strdup("0x"), ret);
-	if (format->flags & 256 && (format->format == 'X'))
-		ret = ft_strfreejoin(ft_strdup("0X"), ret);
 	*size = ft_strlen(ret);
 	return (ret);
 }

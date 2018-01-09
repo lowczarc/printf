@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 21:59:12 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/24 16:03:30 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/09 13:41:20 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,4 @@ char	*ft_strnjoin(char *s1, char *s2, int n1, int n2)
 	free(s1);
 	free(s2);
 	return (ret);
-}
-
-void	ft_putnstr(char *str, int size)
-{
-	write(1, str, size);
 }

@@ -6,7 +6,7 @@
 /*   By: lowczarc <lowczarc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 20:52:30 by lowczarc          #+#    #+#             */
-/*   Updated: 2017/12/15 20:27:43 by lowczarc         ###   ########.fr       */
+/*   Updated: 2018/01/07 19:00:21 by lowczarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*ft_llutoa(unsigned long long int n, int size)
 {
 	char	*ret;
 
-	if (size < size_llutoa(n))
+	if (size < size_llutoa(n) && !(n == 0 && size == 0))
 		size = size_llutoa(n);
 	ret = malloc(sizeof(char) * (size + 1));
 	if (ret == NULL)
